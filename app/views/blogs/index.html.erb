@@ -1,0 +1,26 @@
+
+<% @blogs.each do |blog| %>
+    <article>
+      <div class="row white-fnt ">
+        <div class="col-xs-12">
+          <h2><%= link_to blog.title, blog_path(blog) %>
+            <div class='pull-right'>
+              <%= link_to edit_blog_path(blog), class: 'btn btn-default' do %>
+                  <i class='glyphicon glyphicon-edit'></i>
+              <% end %>
+              <%= link_to blog_path(blog), method: :delete, class: 'btn btn-danger',
+                          data: {confirm: "Delete #{blog.title}?"} do %>
+                  <i class='glyphicon glyphicon-trash'></i>
+              <% end %>
+            </div>
+          </h2>
+        </div>
+      </div>
+      <div class="row white-font">
+        <div class="col-xs-12">
+          <%= blog.body %>
+        </div>
+      </div>
+    </article>
+<% end %>
+

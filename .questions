@@ -1,0 +1,14 @@
+** TO DO **
+
+1. test on navigation bar. integration test
+2. test on pages request. controller test
+3. test blog. controller test
+         login - check with current_user
+4.
+
+1. how to redirect to login modal
+2. login modal does not work with error response after first error response
+    - check element
+    headers
+    {"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
+    "X-Content-Type-Options"=>"nosniff", "Content-Type"=>"text/javascript; charset=utf-8"}

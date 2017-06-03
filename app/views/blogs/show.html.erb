@@ -1,0 +1,25 @@
+ <article>
+  <div class="row white-font">
+    <div class="col-xs-10 col-xs-offset-1">
+      <h2><%= @blog.title %>
+        <div class='pull-right'>
+          <%= link_to edit_blog_path(@blog), class: 'btn btn-default' do %>
+              <i class='glyphicon glyphicon-edit'></i>
+          <% end %>
+          <%= link_to blog_path(@blog), method: :delete, class: 'btn btn-danger',
+                      data: {confirm: "Delete #{ @blog.title }?"} do %>
+              <i class='glyphicon glyphicon-trash'></i>
+          <% end %>
+          <%= link_to blogs_path, class: 'btn btn-default' do %>
+              <i class='glyphicon glyphicon-home'></i>
+          <% end %>
+        </div>
+      </h2>
+    </div>
+    <div class="row white-font">
+      <div class="col-xs-10 col-xs-offset-1">
+        <%= simple_format @blog.body %>
+      </div>
+    </div>
+  </div>
+ </article>

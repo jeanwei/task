@@ -1,0 +1,16 @@
+<div class="row white-font">
+  <div class="col-xs-10 col-xs-offset-1">
+    <h2>New Post
+      <div class='pull-right'>
+        <%= link_to blogs_path, class: 'btn btn-default' do %>
+            <i class='glyphicon glyphicon-home'></i>
+        <% end %>
+      </div>
+    </h2>
+    <%= form_for(@blog, class: 'form-horizontal') do |f| %>
+        <%= render partial: 'form', locals: { f: f, blog: @blog } %>
+        <%= f.submit 'Create Post', class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>
+
