@@ -8,6 +8,5 @@ Rails.application.routes.draw do
   post    '/login',               to: 'sessions#create'
   delete  '/logout',              to: 'sessions#destroy'
   post    '/slack_me',            to: 'static_pages#slack_me'
-  post    '/reply',               to: 'static_pages#reply'
   resources :blogs
 end
