@@ -9,17 +9,17 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js' %>
   </head>
-    <body>
-  <%= render partial: 'shared/navbar' %>
-    <div class="container">
+  <body>
+    <%= render partial: 'shared/navbar' %>
+    <div class="content container">
       <div class="row">
         <div class="col-xs-12">
           <% flash.each do |name, msg| -%>
             <%= content_tag :div, class: "alert alert-#{name}" do %>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <%= msg %>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <%= msg %>
               <% end %>
           <% end %>
         </div>
