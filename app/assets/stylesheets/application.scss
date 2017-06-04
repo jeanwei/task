@@ -15,8 +15,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-body { background: #333; }
-article { padding: 2%; }
+body {
+  background: #333;
+  color: #fff;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+
 img { border: 0; max-width: 100%; }
 
 .page-header h1 {
@@ -170,6 +174,7 @@ img { border: 0; max-width: 100%; }
 
 .tl-body p, .tl-body ul {
   margin-bottom: 0;
+  color: #000;
 }
 
 .tl-body > p + p {
@@ -227,20 +232,52 @@ img { border: 0; max-width: 100%; }
   }
 }
 
-.check-me-out {
-  color: #fff;
-  font-size: 1.5em;
+.block {
+  margin: 24px 0;
 }
 
-.logos-group {
+.form-block {
+  width: 50%;
+  margin: 24px auto;
+  padding: 2em;
+  background-color: #fff;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  color: #000;
+}
+
+span.input-group-addon {
+  padding: 0;
+}
+
+span.input-group-addon.input-group-label {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+span.input-group-addon.input-group-field {
   width: auto;
-  margin-left: 20%;
 }
 
-.white-font {
-  color: #fff;
+.modal .modal-dialog {
+  width: 50%;
 }
 
-.bordered {
-  padding: 20px;
+.modal .modal-body {
+  color: #000;
+  margin: 36px;
+  padding: 0;
 }
+
+.modal button.close {
+  margin-right: 36px;
+  margin-top: 18px;
+  padding-top: 6px;
+  z-index: 10000;
+}
+
+.modal .modal-errors {
+  margin: 18px 72px 0px 36px;
+}
+

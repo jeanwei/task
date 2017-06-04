@@ -4,7 +4,7 @@ require 'json'
 class Slack
   def self.to_channel(channel, message)
     RestClient.post(
-        'https://hooks.slack.com/services/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',
+        'https://hooks.slack.com/services/' + ENV[:SLACK_HOOK],
     { payload: {
               channel: "#{channel}",
               username: "messenger",

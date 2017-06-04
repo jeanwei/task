@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,25 +8,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="navbar-brand"><%= link_to "Home ", root_path %></div>
+      <div class="navbar-brand <%= yield(:home) %>"><%= link_to "Home ", root_path %></div>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to "About Me ", about_me_path %><span class="sr-only">(current)</span></li>
-        <li><%= link_to "Video Submission ", video_submission_path %></li>
-        <li><%= link_to "Contact Me ", contact_me_path %></li>
+        <li class="<%= yield(:about) %>"><%= link_to "About Me ", about_me_path %><span class="sr-only">(current)</span></li>
+        <li class="<%= yield(:video) %>"><%= link_to "Video Submission ", video_submission_path %></li>
+        <li class="<%= yield(:contact) %>"><%= link_to "Contact Me ", contact_me_path %></li>
         <% if logged_in? %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog <span class="caret"></span></a>
+          <li class="dropdown <%= yield(:blog) %>">
+            <a href="#" class='dropdown-toggle' data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><%= link_to 'View All Post', blogs_path %></li>
               <li><%= link_to 'Create A Post', new_blog_path %></li>
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Blog", blogs_path %></li>
+          <li class="<%= yield(:blog) %>"><%= link_to "Blog", blogs_path %></li>
         <% end %>
       </ul>
 
@@ -37,7 +37,7 @@
             <li>
               <%= link_to 'Log In', login_path, { remote: true,
                                                   'data-toggle' => 'modal',
-                                                  'data-target' => '#sessionModal'} %>
+                                                  'data-target' => '#my-modal'} %>
             </li>
             <li><%= link_to "Log In ", login_path %></li>
         <% end %>
@@ -46,17 +46,13 @@
   </div><!-- /.container-fluid -->
 </nav>
 
-<div class="modal fade" id="sessionModal" role="dialog">
+<div class="modal fade" id="my-modal" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div style="padding: 20px 50px;">
-        <button type="button" class="close" data-dismiss="modal">
-          &times;</button>
-      </div>
-      <div class="modal-body" style="padding:20px 50px;">
-        <div id="errors"></div>
-        <%= render 'sessions/form', modal: true %>
-      </div>
+      <button type="button" class="close" data-dismiss="modal">
+        &times;</button>
+      <div class='modal-errors' id="errors"></div>
+      <div class="modal-body" id="my-modal-body"></div>
     </div>
   </div>
 </div>

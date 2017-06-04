@@ -1,0 +1,12 @@
+$('#my-modal-body').html('');
+$('#errors').html('');
+$('#my-modal-body').append("<%= escape_javascript(render 'sessions/form', modal: true) %>");
+
+$('.modal').on('ajax:error', function(e, xhr, status, err) {
+    var errors = $.parseJSON(xhr.responseText);
+    alert(errors);
+    $.each(errors, function(index, error) {
+        alert(error);
+        $('#errors').html("<p class='well well-sm alert-danger'>* "+error+"</p>");
+    });
+});

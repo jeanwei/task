@@ -1,23 +1,21 @@
+<% provide(:contact, 'active') %>
+
 <div class="row">
   <div class="col-xs-4">
-    <div class="check-me-out">
-      <p>Check Me Out @</p>
-    </div>
-    <div class="logos-group">
+    <div class="block">
+      <h3>Check Me Out @</h3>
       <a href="https://github.com/jeanwei" target="_blank">
         <img src="<%= image_path('logos/github.png') %>" alt="Github icon" />
       </a>
       <a href="https://www.linkedin.com/in/tong-wei-lian-942097b8/" target="_blank">
-        <img src="<%= image_path('logos/linkedin.png') %>"  alt="LinkedIn icon" width="20%" />
+        <img src="<%= image_path('logos/linkedin.png') %>"  alt="LinkedIn icon" width="70em"/>
       </a>
       <a href="https://www.facebook.com/tongwei" target="_blank">
-        <img src="<%= image_path('logos/fb.png') %>" alt="Facebook icon" width="20%">
+        <img src="<%= image_path('logos/fb.png') %>" alt="Facebook icon" width="70em">
       </a>
     </div>
-    <div class="check-me-out" style="margin-top: 30px">
-      <p>More About My Interest ...</p>
-    </div>
-    <div class="widgets">
+    <div class="block">
+      <h3>More About My Interest ...</h3>
       <div id="fb-root"></div>
       <div class="fb-page" data-href="https://www.facebook.com/agileventures" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
         <blockquote cite="https://www.facebook.com/agileventures" class="fb-xfbml-parse-ignore">
@@ -27,10 +25,10 @@
     </div>
   </div>
   <div class="col-xs-8">
-    <div class="check-me-out">
-      <p>To Get In Touch ~ </p>
+    <div class="block">
+      <h3>To Get In Touch ~ </h3>
+      <%= render 'form' %>
     </div>
-    <%= render 'form' %>
   </div>
 </div>
 <script>(function(d, s, id) {

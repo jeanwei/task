@@ -1,24 +1,22 @@
-# README
+## Example App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This example app:
 
-Things you may want to cover:
+* Has a carousel
+* Embeds a youtube video 
+* Uses a timeline
+* Has a contact form
+* Has a blog which requires login for content manipulation
 
-* Ruby version
+### Running Locally
 
-* System dependencies
+You'll need:
 
-* Configuration
+* Ruby 2.3.3
+* Postgres
 
-* Database creation
+Then, once you clone down this repo:
 
-* Database initialization
+* `bundle install`
+* `rake db:create; rake db:migrate; rake db:seed;`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -1,14 +1,29 @@
-** TO DO **
+
+**
+
+1. how to redirect to login modal if login fails
+2. how to upload pictures for create blog
+3. how to include slack notifier when email is received
+4. how to style iframe
+
+** Production Issues **
+1. Have not seed database. how to work with database
+2. sendgrid not working
+
+
+** TDD **
 
 1. test on navigation bar. integration test
 2. test on pages request. controller test
 3. test blog. controller test
          login - check with current_user
-4.
 
-1. how to redirect to login modal
-2. login modal does not work with error response after first error response
-    - check element
-    headers
-    {"X-Frame-Options"=>"SAMEORIGIN", "X-XSS-Protection"=>"1; mode=block",
-    "X-Content-Type-Options"=>"nosniff", "Content-Type"=>"text/javascript; charset=utf-8"}
+
+
+** !!~@()#
+should have only 1 owner
+so no signup
+strategy : maninuplate owner credential locally & push to heroku
+or : username is email address. will have forget password feature
+& no create owner. only update owner for password & username manipulation
+so edit owner after login is possible??

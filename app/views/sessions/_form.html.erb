@@ -1,23 +1,39 @@
 <% modal ||= false %>
-<% remote = modal ? true : false %>
-<%= form_for(:session, url: login_path, remote: remote, html: { role: :form,
-                                                                id: 'new_session' }) do |f| %>
+<%= form_for(:session,
+             url: login_path,
+             remote: modal,
+             html: { role: :form,
+                     id: 'new_session' }) do |f| %>
 
     <div class="form-group">
-      <%= f.label :email, class: 'control-label' do %>
-          Email <i class="glyphicon glyphicon-user"></i>
-      <% end %>
-      <%= f.email_field :email, class: 'form-control', required: true %>
+      <%= f.label :email, class: 'control-label' %>
+      <div class="input-group">
+        <span class="input-group-addon input-group-label">
+          <i class="glyphicon glyphicon-user"></i>
+        </span>
+        <span class="input-group-addon input-group-field">
+          <%= f.email_field :email,
+                            class: 'form-control',
+                            placeholder: 'snoppy@example.com',
+                            required: true %>
+        </span>
+      </div>
     </div>
 
     <div class="form-group">
-      <%= f.label :password, class: 'control-label' do %>
-          Password <i class="glyphicon glyphicon-eye-open"></i>
-      <% end %>
-      <%= f.password_field :password, class: 'form-control', required: true %>
+      <%= f.label :password, class: 'control-label' %>
+      <div class="input-group">
+        <span class="input-group-addon input-group-label">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </span>
+        <span class="input-group-addon input-group-field">
+          <%= f.password_field :password,
+                               class: 'form-control',
+                               placeholder: 'iamsnoopy',
+                               required: true %>
+        </span>
+      </div>
     </div>
 
     <%= f.submit 'Log In', class: 'btn btn-block btn-success' %>
 <% end %>
-
-

@@ -1,5 +1,6 @@
- <article>
-  <div class="row white-font">
+<% provide(:blog, 'active') %>
+
+<div class="row">
     <div class="col-xs-10 col-xs-offset-1">
       <h2><%= @blog.title %>
         <div class='pull-right'>
@@ -16,10 +17,9 @@
         </div>
       </h2>
     </div>
-    <div class="row white-font">
+    <div class="row">
       <div class="col-xs-10 col-xs-offset-1">
         <%= simple_format @blog.body %>
       </div>
     </div>
   </div>
- </article>

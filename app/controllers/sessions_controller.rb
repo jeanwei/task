@@ -15,10 +15,10 @@ class SessionsController < ApplicationController
         format.html { redirect_to blogs_path }
         format.js { render js: "window.location='/blogs'" }
       else
-        byebug
         flash.now[:danger] = 'Invalid email / password combination'
         format.html { render 'new' }
-        format.js { render json: { errors: ['Invalid email / password combination'] }, status: :unprocessable_entity }
+        format.js { render json: { errors: ['Invalid email / password combination'] },
+                           status: :unprocessable_entity }
       end
     end
   end
