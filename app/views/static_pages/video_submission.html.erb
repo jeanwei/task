@@ -1,10 +1,15 @@
 <% provide(:video, 'active') %>
 
 <div class="row">
-  <div class="video video-container">
-    <div id='player'></div>
-    <iframe id="player" allowfullscreen=true align="center" width="864" height="486"
-          src="https://www.youtube.com/embed/Nm-JPteXb5s?&origin=http://localhost:3000"
-          frameborder="0"></iframe>
+  <div class="col-xs-12">
+    <header class="page-header">
+      <h1>My Video</h1>
+    </header>
+
+    <div class="videoWrapper">
+      <!-- Copy & Pasted from YouTube -->
+      <iframe width="560" height="349" src="https://www.youtube.com/embed/Nm-JPteXb5s" frameborder="0" allowfullscreen></iframe>
+    </div>
+    
   </div>
 </div>
