@@ -1,6 +1,5 @@
 <%= form_for(Contact.new, url: contact_me_path, html: { id: 'contactForm',
-                                                        class: 'form-horizontal',
-                                                        'data-toggle' => 'validator' }) do |f| %>
+                                                        class: 'form-horizontal' }) do |f| %>
     <div class="form-group has-feedback">
       <%= f.label :name, class: 'control-label col-sm-3 white-font' %>
       <div class="col-sm-8">
