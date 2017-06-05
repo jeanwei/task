@@ -25,26 +25,22 @@ require 'rails_helper'
 
 RSpec.describe BlogsController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Blog. As you add validations to Blog, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { title: 'lorem ipsum', body: 'lorem ipsum.. lorem ipsum.. lorem ipsum.. '}
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) { { title: '', body: '' } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # BlogsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:owner) { FactoryGirl.create(:owner) }
+  let(:valid_session) { { user_id: owner.id} }
 
   describe "GET #index" do
     it "returns a success response" do
       blog = Blog.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, params: {}
       expect(response).to be_success
     end
   end
@@ -52,8 +48,15 @@ RSpec.describe BlogsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       blog = Blog.create! valid_attributes
-      get :show, params: {id: blog.to_param}, session: valid_session
+      get :show, params: {id: blog.to_param}
       expect(response).to be_success
+    end
+
+    context "record does not exist" do
+      it "redirects to index" do
+        get :show, params: {id: 0}
+        expect(response).to redirect_to(blogs_path)
+      end
     end
   end
 
@@ -80,45 +83,49 @@ RSpec.describe BlogsController, type: :controller do
         }.to change(Blog, :count).by(1)
       end
 
-      it "redirects to the created blog" do
+      it "redirects to the created blog & shows success message" do
         post :create, params: {blog: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Blog.last)
+        expect(flash[:success]).to eq "Blog was successfully created"
       end
     end
 
-    context "with invalid params" do
+    context "with invalid params & shows error messages" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {blog: invalid_attributes}, session: valid_session
         expect(response).to be_success
+        expect(flash[:danger]).to contain_exactly("Title can't be blank", "Body can't be blank")
       end
     end
   end
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) do
+        { title: 'update another title' }
+      end
 
       it "updates the requested blog" do
         blog = Blog.create! valid_attributes
         put :update, params: {id: blog.to_param, blog: new_attributes}, session: valid_session
         blog.reload
-        skip("Add assertions for updated state")
+        expect(blog.title).to eq new_attributes[:title]
       end
 
-      it "redirects to the blog" do
+      it "redirects to the blog & show success message " do
         blog = Blog.create! valid_attributes
         put :update, params: {id: blog.to_param, blog: valid_attributes}, session: valid_session
         expect(response).to redirect_to(blog)
+        expect(flash[:success]).to eq "Blog was successfully updated."
       end
     end
 
-    context "with invalid params" do
+    context "with invalid params & show error messages" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         blog = Blog.create! valid_attributes
         put :update, params: {id: blog.to_param, blog: invalid_attributes}, session: valid_session
         expect(response).to be_success
+        expect(flash[:danger]).to include("Title can't be blank", "Body can't be blank")
       end
     end
   end
@@ -131,11 +138,11 @@ RSpec.describe BlogsController, type: :controller do
       }.to change(Blog, :count).by(-1)
     end
 
-    it "redirects to the blogs list" do
+    it "redirects to the blogs list & shows success message" do
       blog = Blog.create! valid_attributes
       delete :destroy, params: {id: blog.to_param}, session: valid_session
       expect(response).to redirect_to(blogs_url)
+      expect(flash[:success]).to eq "Blog was successfully destroyed."
     end
   end
-
 end

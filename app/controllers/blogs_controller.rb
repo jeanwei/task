@@ -1,6 +1,8 @@
 class BlogsController < ApplicationController
   before_action :logged_in_user, except: [:index, :show]
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
 
   # GET /blogs
   # GET /blogs.json
@@ -29,10 +31,13 @@ class BlogsController < ApplicationController
 
     respond_to do |format|
       if @blog.save
-        format.html { redirect_to @blog, info: 'Blog was successfully created.' }
+        format.html { redirect_to @blog, success: 'Blog was successfully created' }
         format.json { render :show, status: :created, location: @blog }
       else
-        format.html { render :new }
+        format.html do
+          flash.now[:danger] = @blog.errors.full_messages
+          render :new
+        end
         format.json { render json: @blog.errors, status: :unprocessable_entity }
       end
     end
@@ -43,10 +48,13 @@ class BlogsController < ApplicationController
   def update
     respond_to do |format|
       if @blog.update(blog_params)
-        format.html { redirect_to @blog, info: 'Blog was successfully updated.' }
+        format.html { redirect_to @blog, success: 'Blog was successfully updated.' }
         format.json { render :show, status: :ok, location: @blog }
       else
-        format.html { render :edit }
+        format.html do
+          flash.now[:danger] = @blog.errors.full_messages
+          render :edit
+        end
         format.json { render json: @blog.errors, status: :unprocessable_entity }
       end
     end
@@ -57,7 +65,7 @@ class BlogsController < ApplicationController
   def destroy
     @blog.destroy
     respond_to do |format|
-      format.html { redirect_to blogs_url, notice: 'Blog was successfully destroyed.' }
+      format.html { redirect_to blogs_url, success: 'Blog was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,5 +79,9 @@ class BlogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
       params.require(:blog).permit(:title, :body)
+    end
+
+    def record_not_found
+      redirect_to blogs_path
     end
 end
