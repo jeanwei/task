@@ -45,9 +45,10 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'shoulda-matchers', '~> 3.0'
   gem 'database_cleaner'
-  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
 end
 
 group :development do
