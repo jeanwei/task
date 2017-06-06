@@ -1,6 +1,6 @@
 <% provide(:blog, 'active') %>
 <% @blogs.each do |blog| %>
-    <div class="row">
+    <div id='blog-<%= blog.id %>' class="row">
       <div class="col-xs-12">
         <header class="page-header">
           <h1><%= link_to blog.title, blog_path(blog) %>
