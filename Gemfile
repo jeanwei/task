@@ -48,6 +48,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'poltergeist'
+  gem 'headless'
   gem 'selenium-webdriver'
 end
 
