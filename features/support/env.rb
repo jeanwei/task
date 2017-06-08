@@ -33,7 +33,7 @@ require 'cucumber/rails'
 #   )
 # end
 
-
+# http://blog.faraday.io/headless-chromium/
 Capybara.register_driver :headless_chromium do |app|
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(
       "chromeOptions" => {
