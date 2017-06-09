@@ -6,71 +6,16 @@
 
 require 'cucumber/rails'
 
-# Capybara.register_driver :sample_chrome do |app|
-# # https://sites.google.com/a/chromium.org/chromedriver/capabilities
-#   caps = Selenium::WebDriver::Remote::Capabilities.chrome("chromeOptions" => {"args" => [ "--disable-web-security" ]})
-#   Selenium::WebDriver.for :remote, url: 'http://localhost:4444/wd/hub', desired_capabilities: caps
-# end
-#
-# Capybara.register_driver :headless_chromium do |app|
-#   caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-#       "chromeOptions" => {
-#           'binary' => '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-#           'args' => ['headless', 'disable-gpu']
-#       }
-#   )
-#   Capybara::Selenium::Driver.new(app, desired_capabilities: caps)
-# end
-
-# chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
-# # https://github.com/Shopify/heroku-buildpack-google-chrome
-# chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
-# Capybara.register_driver :chrome do |app|
-#   Capybara::Selenium::Driver.new(
-#       app,
-#       browser: :chrome,
-#       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
-#   )
-# end
-
-# http://blog.faraday.io/headless-chromium/
-Capybara.register_driver :headless_chromium do |app|
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-      "chromeOptions" => {
-          'binary' => '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-          'args' => %w{headless no-sandbox disable-gpu}
-      }
-  )
-  Capybara::Selenium::Driver.new(
-      app,
-      browser: :chrome,
-      desired_capabilities: caps
-  )
-end
-
-Capybara.register_driver :chromium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara.javascript_driver = :headless_chromium
-
-if $headless_server.nil?
-  if !ENV['IN_BROWSER']
-    require 'headless'
-    # allow display autopick (by default)
-    # allow each headless to destroy_at_exit (by default)
-    # allow each process to have their own headless by setting reuse: false
-    # $headless_server = Headless.new(reuse: true)
-    $headless_server = Headless.new(reuse: true, destroy_at_exit: false)
-    $headless_server.start
+Capybara.register_driver :selenium_chrome do |app|
+  args = ENV['TRAVIS'] ? ['no-sandbox' ] : []
+  if ENV['CAPYBARA_CHROME_HEADLESS']
+    args << 'headless'
+    Selenium::WebDriver::Chrome.path='/usr/bin/google-chrome-beta' if ENV['TRAVIS']
   end
+  Capybara::Selenium::Driver.new(app, :browser => :chrome, :args => args)
 end
+Capybara.javascript_driver = :selenium_chrome
 
-at_exit do
-  unless $headless_server.nil?
-    $headless_server.destroy
-  end
-end
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
