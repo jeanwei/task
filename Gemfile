@@ -47,9 +47,8 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'poltergeist'
-  gem 'headless'
   gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
 
 group :development do
