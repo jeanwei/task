@@ -6,16 +6,20 @@ dist: trusty
 addons:
   postgresql: '9.6'
   chrome: stable
+bundler_args: "--without production --jobs=3"
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - cp config/database.yml.travis config/database.yml
-  - bundle exec rake db:migrate RAILS_ENV=test
-#before_install:
-#  - bundle exec rails s -d
-#  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+- bundle exec rake db:migrate RAILS_ENV=test
 script:
-  - bundle exec rspec
-  - bundle exec cucumber -p headless
+- bundle exec rspec
+- bundle exec cucumber -p headless
+deploy:
+  provider: heroku
+  api_key:
+    secure: e3TznEE5Yh0wo7yxkq2SciiBSEkr3GhxtuW4LQWc5pfJDh5acnwfeB4YZAP3Mce5mX1UqmnIJD6sfjA0sqRMlnEQdM+OSDxQC49DWj7+JwLm7Tv5BNCXrPWyzxXqjbB2v3fWgWuBmbW8TqYqmkDq0419/Npq8m9QRH8KVc6KlZvgTFMpz/4e7oYf1TP2Ya1iQnwra8Zb1cxg8dwS4fwBlFFjOdQWBFvMws5DmjHrP0lSB8JF/QTHZ07bLPFTKhNa2HRgaqbmOj8Ly+50AvoUl3/Gbf6TP01dkwTH58HLCQtlCyW+ua7f7ryxmV3L+sX0zZPgdKhnF6U3R8x3GE2VIrN3a0tbamPOjeanpqApHV9BYEH0/MHveDWYt7fJHZNxsqs/B5Me+H9dw+kEqMEdUaQMAxjAp3vyw7+rahjpM/Q5+IDbzbDJCJKMoCVpmlPbenKHvxofEAeoVwAcYLseVZMtXvumoNTsbF8uGObJDBc5RnVXDVS0BuA/KUBo7fezFcJrXG8Ojq6KyzZ3aDQG1UUzZp1DzMHB040v7sdv7uCA35TbHelKJNqeVBUzb8xUHYBh3n6heZvdR7aS2+Hk1DN93P7sT5a/zyeywtop6pa64PwXJNCDVwdhd47Bh3EnJgqTV2rJJjjMCwNgW+mlhzKf6+5GsGjOLffv06AkzXo=
+  app: tong-wei
+  run: rake db:migrate
