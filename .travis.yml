@@ -3,7 +3,6 @@ rvm:
 - 2.3.3
 sudo: false
 dist: trusty
-env: CAPYBARA_CHROME_HEADLESS=true
 addons:
   postgresql: '9.6'
   chrome: stable
